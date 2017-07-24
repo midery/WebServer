@@ -18,9 +18,6 @@ import java.util.List;
 
 import static javax.swing.UIManager.getInt;
 
-/**
- * Created by M1DERY on 21.07.2017.
- */
 @WebServlet(name = "UserServlet", urlPatterns = {"/users", "/users/*"})
 public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

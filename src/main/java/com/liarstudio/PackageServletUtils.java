@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.liarstudio.BaseClasses.Package;
 import com.liarstudio.BaseClasses.Person;
-import com.liarstudio.BaseClasses.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,9 +14,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by M1DERY on 22.07.2017.
- */
 public class PackageServletUtils {
     public static Integer getInt(String s) {
         try {

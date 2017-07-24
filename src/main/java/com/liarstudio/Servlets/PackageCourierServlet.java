@@ -19,9 +19,6 @@ import java.util.List;
 
 import static com.liarstudio.PackageServletUtils.*;
 
-/**
- * Created by M1DERY on 22.07.2017.
- */
 @WebServlet(name = "PackageCourierServlet", urlPatterns = {"/package/courier/*"})
 public class PackageCourierServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

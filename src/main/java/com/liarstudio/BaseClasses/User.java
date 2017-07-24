@@ -3,10 +3,6 @@ package com.liarstudio.BaseClasses;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * Created by M1DERY on 20.07.2017.
- */
-
 
 @DatabaseTable(tableName = "user")
 public class User {
