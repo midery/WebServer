@@ -18,9 +18,16 @@ public class PackageServletUtils {
     public static Integer getInt(String s) {
         try {
             return Integer.parseInt(s.trim());
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException | NullPointerException e) {
             return null;
         }
+    }
+    public static Integer getIdFrom(String pathInfo) {
+        return getInt(
+                pathInfo.substring(
+                        pathInfo.lastIndexOf('/')+1
+                )
+        );
     }
     public static List<Package> fillPackages(Dao<Package, String> packageDao, Dao<Person, String> personDao, List<Package> packages)
             throws SQLException, ClassNotFoundException {

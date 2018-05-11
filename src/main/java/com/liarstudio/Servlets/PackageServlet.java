@@ -21,7 +21,7 @@ import java.util.List;
 import static com.liarstudio.PackageServletUtils.*;
 
 
-@WebServlet(name = "PackageServlet", urlPatterns = {"/package"})
+@WebServlet(name = "PackageServlet", urlPatterns = {"/package", "/package/delete/*"})
 public class PackageServlet extends HttpServlet {
 
 
@@ -72,7 +72,25 @@ public class PackageServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer id = getIdFrom(req.getPathInfo());
+        if (id != null) {
+            boolean isDeleted = false;
+            try {
+                isDeleted = deletePackage(id);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Can't find PostgreSQL driver!");
+            } catch (SQLException e) {
+                System.out.println("Can't estabilish SQL connection!");
+            }
+            if (isDeleted)
+                resp.setStatus(HttpServletResponse.SC_OK);
+            else
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 
+        }
+    }
 
 
     List<Package> loadPackages() throws SQLException, ClassNotFoundException {
@@ -94,9 +112,6 @@ public class PackageServlet extends HttpServlet {
         return packages;
 
     }
-
-
-
 
     Package loadPackageByID(int id) throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
@@ -167,5 +182,21 @@ public class PackageServlet extends HttpServlet {
         return pkg;
     }
 
+    boolean deletePackage(Integer id) throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
 
+        String db_url = "jdbc:postgresql://localhost:5432/courierservice";
+        String db_user = "postgres";
+        String db_password = "postgres";
+
+        ConnectionSource cs = new JdbcConnectionSource(db_url, db_user, db_password);
+
+        Dao<Package, String> packageDao = DaoManager.createDao(cs, Package.class);
+
+
+        packageDao.deleteById(id.toString());
+
+        cs.close();
+        return true;
+    }
 }

@@ -20,8 +20,8 @@ import static com.liarstudio.PackageServletUtils.*;
 
 @WebServlet(name = "PackageAdminServlet", urlPatterns = {"/package/admin"})
 public class PackageAdminServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException { }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,28 +36,6 @@ public class PackageAdminServlet extends HttpServlet {
         }
         handleResponse(packages, response);
     }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id;
-        if ((id = getInt(req.getParameter("pack_id"))) != null) {
-            boolean isDeleted = false;
-            try {
-                isDeleted = deletePackage(id);
-            } catch (ClassNotFoundException e) {
-                System.out.println("Can't find PostgreSQL driver!");
-            } catch (SQLException e) {
-                System.out.println("Can't estabilish SQL connection!");
-            }
-            if (isDeleted)
-                resp.setStatus(HttpServletResponse.SC_OK);
-            else
-                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-
-        }
-
-    }
-
 
     List<Package> loadPackages() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
@@ -82,25 +60,6 @@ public class PackageAdminServlet extends HttpServlet {
 
         cs.close();
         return packages;
-
-    }
-
-    boolean deletePackage(Integer id) throws SQLException, ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-
-        String db_url = "jdbc:postgresql://localhost:5432/courierservice";
-        String db_user = "postgres";
-        String db_password = "postgres";
-
-        ConnectionSource cs = new JdbcConnectionSource(db_url, db_user, db_password);
-
-        Dao<Package, String> packageDao = DaoManager.createDao(cs, Package.class);
-
-
-        packageDao.deleteById(id.toString());
-
-        cs.close();
-        return true;
 
     }
 }
