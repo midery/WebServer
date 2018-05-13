@@ -125,15 +125,16 @@ public class PackageServlet extends HttpServlet {
         Dao<Package, String> packageDao = DaoManager.createDao(cs, Package.class);
         Dao<Person, String> personDao = DaoManager.createDao(cs, Person.class);
 
-        Package pack;
-        if ((pack = packageDao.queryBuilder().where().eq("id", id).queryForFirst())!=null) {
-            pack.setCalendar(pack.getDate());
-            pack.setSender(personDao.queryBuilder().where().eq("id", pack.getSender().getId()).queryForFirst());
-            pack.setRecipient(personDao.queryBuilder().where().eq("id", pack.getRecipient().getId()).queryForFirst());
+        Package pkg;
+        if ((pkg = packageDao.queryBuilder().where().eq("id", id).queryForFirst())!=null) {
+            pkg.setStringDate();
+            pkg.setDimensions();
+            pkg.setSender(personDao.queryBuilder().where().eq("id", pkg.getSender().getId()).queryForFirst().setCoordinates());
+            pkg.setRecipient(personDao.queryBuilder().where().eq("id", pkg.getRecipient().getId()).queryForFirst().setCoordinates());
         }
 
         cs.close();
-        return pack;
+        return pkg;
     }
 
     boolean updatePackage(Package pack) throws SQLException, ClassNotFoundException {
@@ -176,7 +177,7 @@ public class PackageServlet extends HttpServlet {
 
         Gson gson = new GsonBuilder().create();
         Package pkg = gson.fromJson(sb.toString(), Package.class);
-        pkg.setDate(pkg.getCalendar().getTime());
+        //pkg.setDate(pkg.getCalendar().getTime());
 
 
         return pkg;

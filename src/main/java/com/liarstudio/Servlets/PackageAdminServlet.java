@@ -21,7 +21,8 @@ import static com.liarstudio.PackageServletUtils.*;
 @WebServlet(name = "PackageAdminServlet", urlPatterns = {"/package/admin"})
 public class PackageAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { }
+            throws ServletException, IOException {
+    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

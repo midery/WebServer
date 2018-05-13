@@ -1,9 +1,12 @@
 package com.liarstudio.Servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.liarstudio.BaseClasses.Package;
 import com.liarstudio.BaseClasses.User;
 import com.liarstudio.PackageServletUtils;
 
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.swing.UIManager.getInt;
 
@@ -25,9 +29,6 @@ public class UserServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
         if (request.getPathInfo() != null) {
             String pathInfo = request.getPathInfo().replace("/", "");
             Integer id = PackageServletUtils.getInt(pathInfo);
@@ -91,5 +92,4 @@ public class UserServlet extends HttpServlet {
         cs.close();
         return user;
     }
-
 }

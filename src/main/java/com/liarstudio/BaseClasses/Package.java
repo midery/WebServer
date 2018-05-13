@@ -3,6 +3,7 @@ package com.liarstudio.BaseClasses;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.liarstudio.Utils.DateFormatter;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,8 +14,19 @@ public class Package {
 
     @DatabaseField
     private String commentary;
+
+    public String getStringDate() {
+        return stringDate;
+    }
+
+    public void setStringDate() {
+        this.stringDate = DateFormatter.toString(date);
+    }
+
+    /*@SerializedName("date")
+        private Calendar dateCalendar;*/
     @SerializedName("date")
-    private Calendar dateCalendar;
+    private String stringDate;
 
     @DatabaseField(canBeNull = false)
     private transient Date date;
@@ -29,19 +41,23 @@ public class Package {
     @DatabaseField(canBeNull = false, foreign = true)
     private Person sender;
 
+    @SerializedName("dimensions")
+    private Dimensions dimensions;
+
     @DatabaseField(columnName = "size_x", canBeNull = false)
-    private double sizeX;
+    private transient double sizeX;
 
     @DatabaseField(columnName = "size_y", canBeNull = false)
-    private double sizeY;
+    private transient double sizeY;
 
     @DatabaseField(columnName = "size_z", canBeNull = false)
-    private double sizeZ;
+    private transient double sizeZ;
+
+    @DatabaseField(canBeNull = false)
+    private transient double weight;
 
     @DatabaseField(canBeNull = false)
     private Integer status;
-    @DatabaseField(canBeNull = false)
-    private double weight;
 
     @DatabaseField(generatedId = true)
     private Long id;
@@ -55,21 +71,8 @@ public class Package {
         this.commentary = commentary;
     }
 
-    public Calendar getCalendar() {
-        return dateCalendar;
-    }
-
-    public void setCalendar (Calendar date) {
-
-        this.dateCalendar = date;
-    }
-    public void setCalendar (Date date) {
-
-        this.dateCalendar = Calendar.getInstance();
-        this.dateCalendar.setTime(date);
-    }
-
     public Date getDate() {return date;}
+
     public void setDate(Date date) {this.date = date;}
 
     public String getName() {
@@ -151,6 +154,22 @@ public class Package {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Dimensions getDimensions() { return dimensions; }
+
+    public Package setDimensions() {
+        this.dimensions = new Dimensions(sizeX, sizeY, sizeZ, weight);
+        return this;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
+        sizeX = dimensions.x;
+        sizeY = dimensions.y;
+        sizeZ = dimensions.z;
+        weight = dimensions.weight;
+    }
+
 
     public int getCourierId() {
         return courierId;

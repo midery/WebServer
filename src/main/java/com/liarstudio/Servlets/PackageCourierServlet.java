@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.liarstudio.PackageServletUtils.*;
 
-@WebServlet(name = "PackageCourierServlet", urlPatterns = {"/package/courier/*"})
+@WebServlet(name = "PackageCourierServlet", urlPatterns = { "/package/courier/*" })
 public class PackageCourierServlet extends HttpServlet {
 
     private static String PATH_NEW = "new";

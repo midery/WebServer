@@ -1,5 +1,6 @@
 package com.liarstudio.BaseClasses;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -24,6 +25,9 @@ public class Person {
     private String phone;
     @DatabaseField(canBeNull = false)
     private Integer type;
+
+    @SerializedName("coordinates")
+    private Coordinates coordinates;
 
     public String getAddress() {
         return address;
@@ -87,6 +91,22 @@ public class Person {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public Person setCoordinates() {
+        this.coordinates = new Coordinates(coordinatesX, coordinatesY);
+        return this;
+    }
+
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+        coordinatesX = coordinates.x;
+        coordinatesY = coordinates.y;
     }
 
     public int getId() {
