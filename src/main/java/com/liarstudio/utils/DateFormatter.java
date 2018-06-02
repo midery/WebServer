@@ -1,4 +1,4 @@
-package com.liarstudio.Utils;
+package com.liarstudio.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

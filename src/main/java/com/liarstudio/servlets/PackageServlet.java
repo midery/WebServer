@@ -1,4 +1,4 @@
-package com.liarstudio.Servlets;
+package com.liarstudio.servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,8 +6,8 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.liarstudio.BaseClasses.Package;
-import com.liarstudio.BaseClasses.Person;
+import com.liarstudio.entities.Package;
+import com.liarstudio.entities.Person;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -128,9 +128,11 @@ public class PackageServlet extends HttpServlet {
         Package pkg;
         if ((pkg = packageDao.queryBuilder().where().eq("id", id).queryForFirst())!=null) {
             pkg.setStringDate();
-            pkg.setDimensions();
-            pkg.setSender(personDao.queryBuilder().where().eq("id", pkg.getSender().getId()).queryForFirst().setCoordinates());
-            pkg.setRecipient(personDao.queryBuilder().where().eq("id", pkg.getRecipient().getId()).queryForFirst().setCoordinates());
+            pkg.setDimensions(); //TODO
+            //TODO set coordinates
+            //TODO set dimensions
+            pkg.setSender(personDao.queryBuilder().where().eq("id", pkg.getSender().getId()).queryForFirst());
+            pkg.setRecipient(personDao.queryBuilder().where().eq("id", pkg.getRecipient().getId()).queryForFirst());
         }
 
         cs.close();

@@ -1,11 +1,11 @@
-package com.liarstudio.Servlets;
+package com.liarstudio.servlets;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.liarstudio.BaseClasses.Package;
-import com.liarstudio.BaseClasses.Person;
+import com.liarstudio.entities.Package;
+import com.liarstudio.entities.Person;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

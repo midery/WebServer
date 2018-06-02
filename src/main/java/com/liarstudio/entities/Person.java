@@ -1,10 +1,11 @@
-package com.liarstudio.BaseClasses;
+package com.liarstudio.entities;
 
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.liarstudio.utils.TableNames;
 
-@DatabaseTable(tableName = "person")
+@DatabaseTable(tableName = TableNames.PERSONS)
 public class Person {
 
     @DatabaseField(generatedId = true, canBeNull = false)
@@ -13,10 +14,6 @@ public class Person {
     private String address;
     @DatabaseField(canBeNull = false)
     private String companyName;
-    @DatabaseField(canBeNull = false)
-    private double coordinatesX;
-    @DatabaseField(canBeNull = false)
-    private double coordinatesY;
     @DatabaseField
     private String email;
     @DatabaseField(canBeNull = false)
@@ -25,9 +22,6 @@ public class Person {
     private String phone;
     @DatabaseField(canBeNull = false)
     private Integer type;
-
-    @SerializedName("coordinates")
-    private Coordinates coordinates;
 
     public String getAddress() {
         return address;
@@ -43,22 +37,6 @@ public class Person {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public double getCoordinatesX() {
-        return coordinatesX;
-    }
-
-    public void setCoordinatesX(double coordinatesX) {
-        this.coordinatesX = coordinatesX;
-    }
-
-    public double getCoordinatesY() {
-        return coordinatesY;
-    }
-
-    public void setCoordinatesY(double coordinatesY) {
-        this.coordinatesY = coordinatesY;
     }
 
     public String getEmail() {
@@ -93,21 +71,6 @@ public class Person {
         this.type = type;
     }
 
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public Person setCoordinates() {
-        this.coordinates = new Coordinates(coordinatesX, coordinatesY);
-        return this;
-    }
-
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-        coordinatesX = coordinates.x;
-        coordinatesY = coordinates.y;
-    }
 
     public int getId() {
         return id;

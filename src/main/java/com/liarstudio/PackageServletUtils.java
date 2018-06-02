@@ -3,9 +3,8 @@ package com.liarstudio;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
-import com.liarstudio.BaseClasses.Dimensions;
-import com.liarstudio.BaseClasses.Package;
-import com.liarstudio.BaseClasses.Person;
+import com.liarstudio.entities.Package;
+import com.liarstudio.entities.Person;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,8 +38,10 @@ public class PackageServletUtils {
             for (Package pkg: packages) {
                 pkg.setStringDate();
                 pkg.setDimensions();
-                pkg.setSender(personDao.queryBuilder().where().eq("id", pkg.getSender().getId()).queryForFirst().setCoordinates());
-                pkg.setRecipient(personDao.queryBuilder().where().eq("id", pkg.getRecipient().getId()).queryForFirst().setCoordinates());
+                //TODO set dimensions
+                //TODO set coordinates
+                pkg.setSender(personDao.queryBuilder().where().eq("id", pkg.getSender().getId()).queryForFirst());
+                pkg.setRecipient(personDao.queryBuilder().where().eq("id", pkg.getRecipient().getId()).queryForFirst());
             }
         return packages;
     }

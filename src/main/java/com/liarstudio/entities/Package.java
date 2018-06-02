@@ -1,15 +1,15 @@
-package com.liarstudio.BaseClasses;
+package com.liarstudio.entities;
 
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.liarstudio.Utils.DateFormatter;
+import com.liarstudio.utils.DateFormatter;
+import com.liarstudio.utils.TableNames;
 
-import java.util.Calendar;
 import java.util.Date;
 
 
-@DatabaseTable(tableName = "package")
+@DatabaseTable(tableName = TableNames.PACKAGES)
 public class Package {
 
     @DatabaseField
@@ -41,20 +41,9 @@ public class Package {
     @DatabaseField(canBeNull = false, foreign = true)
     private Person sender;
 
+    @DatabaseField(canBeNull = false, foreign = true)
     @SerializedName("dimensions")
     private Dimensions dimensions;
-
-    @DatabaseField(columnName = "size_x", canBeNull = false)
-    private transient double sizeX;
-
-    @DatabaseField(columnName = "size_y", canBeNull = false)
-    private transient double sizeY;
-
-    @DatabaseField(columnName = "size_z", canBeNull = false)
-    private transient double sizeZ;
-
-    @DatabaseField(canBeNull = false)
-    private transient double weight;
 
     @DatabaseField(canBeNull = false)
     private Integer status;
@@ -62,6 +51,17 @@ public class Package {
     @DatabaseField(generatedId = true)
     private Long id;
 
+    @DatabaseField(foreign = true)
+    @SerializedName("coordinates")
+    private Coordinates coordinates;
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 
     public String getCommentary() {
         return commentary;
@@ -107,44 +107,12 @@ public class Package {
         this.sender = sender;
     }
 
-    public double getSizeX() {
-        return sizeX;
-    }
-
-    public void setSizeX(double sizeX) {
-        this.sizeX = sizeX;
-    }
-
-    public double getSizeY() {
-        return sizeY;
-    }
-
-    public void setSizeY(double sizeY) {
-        this.sizeY = sizeY;
-    }
-
-    public double getSizeZ() {
-        return sizeZ;
-    }
-
-    public void setSizeZ(double sizeZ) {
-        this.sizeZ = sizeZ;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
     public Long getId() {
@@ -157,18 +125,14 @@ public class Package {
 
     public Dimensions getDimensions() { return dimensions; }
 
-    public Package setDimensions() {
-        this.dimensions = new Dimensions(sizeX, sizeY, sizeZ, weight);
+    public Package setDimensions() { //TODO XYZ WEIGHT
+        this.dimensions = new Dimensions();
         return this;
     }
 
     public void setDimensions(Dimensions dimensions) {
         this.dimensions = dimensions;
-        sizeX = dimensions.x;
-        sizeY = dimensions.y;
-        sizeZ = dimensions.z;
-        weight = dimensions.weight;
-    }
+        }
 
 
     public int getCourierId() {

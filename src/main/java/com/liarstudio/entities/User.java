@@ -1,10 +1,11 @@
-package com.liarstudio.BaseClasses;
+package com.liarstudio.entities;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.liarstudio.utils.TableNames;
 
 
-@DatabaseTable(tableName = "user")
+@DatabaseTable(tableName = TableNames.USERS)
 public class User {
     @DatabaseField(generatedId = true, canBeNull = false)
     private int id;

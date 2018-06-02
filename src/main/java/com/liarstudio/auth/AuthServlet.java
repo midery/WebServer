@@ -1,4 +1,4 @@
-package com.liarstudio.Servlets;
+package com.liarstudio.auth;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,7 +6,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.liarstudio.BaseClasses.User;
+import com.liarstudio.entities.User;
 import com.liarstudio.PackageServletUtils;
 
 import javax.servlet.ServletException;
@@ -15,16 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.sql.*;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "AuthServlet", urlPatterns = {"/auth"})
+@WebServlet(name = "AuthServlet", urlPatterns = {"/auth/login", "/auth/register", "/auth/logout"})
 public class AuthServlet extends HttpServlet {
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         User user = null;
-
         try {
             user = createUserDao(userFromRequestBody(request));
         } catch (ClassNotFoundException e) {
